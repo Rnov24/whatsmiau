@@ -69,11 +69,11 @@ Because WhatsApp blocks server IP ranges from cloud hosting providers like Railw
 Copy and paste this variables configuration into the **Raw Editor** of your `whatsmiau` service variables tab:
 
 ```ini
-API_KEY=b79670f7ee35089549cac90a4315f3edd3993652084a7416e7c30a16d000dcfc
-DB_URL=postgres://postgres:iLXKCbDwWQdQUyoUNeBzorzNaAVbExBm@postgres.railway.internal:5432/railway?sslmode=disable
+API_KEY=your_api_key_here
+DB_URL=postgres://postgres:your_postgres_password@postgres.railway.internal:5432/railway?sslmode=disable
 DIALECT_DB=postgres
 PORT=8080
-REDIS_PASSWORD=osjmvZLAQghKjvPDWfOHckNOmlarnrJC
+REDIS_PASSWORD=your_redis_password_here
 REDIS_TLS=false
 REDIS_URL=redis.railway.internal:6379
 PROXY_ADDRESSES=HTTP://username:password@proxyhost:proxyport
