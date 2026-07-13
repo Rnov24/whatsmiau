@@ -391,7 +391,7 @@ func configProxy(client *whatsmeow.Client, instanceProxy models.InstanceProxy) {
 }
 
 func mountProxyUrl(proxy models.InstanceProxy) string {
-	return fmt.Sprintf("%s://%s:%s@%s:%s", proxy.ProxyProtocol, proxy.ProxyUsername, proxy.ProxyPassword, proxy.ProxyHost, proxy.ProxyPort)
+	return fmt.Sprintf("%s://%s:%s@%s:%s", strings.ToLower(proxy.ProxyProtocol), proxy.ProxyUsername, proxy.ProxyPassword, proxy.ProxyHost, proxy.ProxyPort)
 }
 
 func buildVCard(fullName, wuid, phone, organization, email, urlValue string) string {
