@@ -206,8 +206,17 @@ func (s *Whatsmiau) Handle(id string) whatsmeow.EventHandler {
 			}
 
 			eventMap := make(map[string]bool)
-			for _, event := range instance.Webhook.Events {
-				eventMap[event] = true
+			if instance.Webhook.ByEvents == nil || !*instance.Webhook.ByEvents {
+				eventMap["MESSAGES_UPSERT"] = true
+				eventMap["MESSAGES_DELETE"] = true
+				eventMap["MESSAGES_UPDATE"] = true
+				eventMap["CONTACTS_UPSERT"] = true
+				eventMap["CONNECTION_UPDATE"] = true
+			} else {
+				for _, event := range instance.Webhook.Events {
+					normalized := strings.ToUpper(strings.ReplaceAll(event, ".", "_"))
+					eventMap[normalized] = true
+				}
 			}
 
 			switch e := evt.(type) {
@@ -546,8 +555,13 @@ func (s *Whatsmiau) emitConnectionUpdate(id string, state string, statusReason i
 	}
 
 	eventMap := make(map[string]bool)
-	for _, evt := range instance.Webhook.Events {
-		eventMap[evt] = true
+	if instance.Webhook.ByEvents == nil || !*instance.Webhook.ByEvents {
+		eventMap["CONNECTION_UPDATE"] = true
+	} else {
+		for _, evt := range instance.Webhook.Events {
+			normalized := strings.ToUpper(strings.ReplaceAll(evt, ".", "_"))
+			eventMap[normalized] = true
+		}
 	}
 
 	s.handleConnectionUpdateEvent(id, instance, state, statusReason, eventMap)
